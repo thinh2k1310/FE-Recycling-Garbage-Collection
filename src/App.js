@@ -10,6 +10,7 @@ import CustomersRoutes from './modules/customers/routes';
 import Home from './modules/home/pages';
 import NotificationsRoutes from './modules/notifications/routes';
 import SalonsRoutes from './modules/salons/routes';
+import HistoryRoutes from './modules/history/routes';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
 
               {/* Manage account */}
               <Route path='accounts/*' element={<CustomersRoutes />} />
+              <Route path='garbage/history/*' element={<HistoryRoutes />} />
               <Route path='salons/*' element={<SalonsRoutes />} />
               <Route path='bookings/*' element={<BookingsRoutes />} />
               <Route path='notifications/*' element={<NotificationsRoutes />} />

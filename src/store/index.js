@@ -4,6 +4,7 @@ import appReducer from '../services/appSlice';
 import { provincesApi } from '../services/provincesApi';
 import authReducer from '../modules/auth/services/authSlice';
 import { customersApi } from '../modules/customers/services/customersApi';
+import { historyApi } from '../modules/history/services/historyApi';
 import { salonsApi } from '../modules/salons/services/salonsApi';
 import { bookingsApi } from '../modules/bookings/services/bookingsApi';
 import { salonServicesApi } from '../modules/salons/services/salonServicesApi';
@@ -15,6 +16,7 @@ const store = configureStore({
     [provincesApi.reducerPath]: provincesApi.reducer,
     auth: authReducer,
     [customersApi.reducerPath]: customersApi.reducer,
+    [historyApi.reducerPath]: historyApi.reducer,
     [salonsApi.reducerPath]: salonsApi.reducer,
     [salonsApi.reducerPath]: salonsApi.reducer,
     [salonServicesApi.reducerPath]: salonServicesApi.reducer,
@@ -24,6 +26,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       customersApi.middleware,
+      historyApi.middleware,
       provincesApi.middleware,
       salonsApi.middleware,
       salonServicesApi.middleware,

@@ -6,7 +6,7 @@ export const configs = [
     title: 'Dashboard',
     path: '/',
     icon: Dashboard,
-    roles: [roles.ADMIN, roles.SALON],
+    roles: [roles.ADMIN, roles.AGENT],
   },
   {
     title: 'Manage account',
@@ -24,13 +24,13 @@ export const configs = [
     title: 'Quản lý salon',
     path: '/salons/salon',
     icon: Shop,
-    roles: [roles.SALON],
+    roles: [roles.AGENT],
   },
   {
-    title: 'Lịch sử khách hàng',
-    path: '/bookings/history',
+    title: 'Garbage Transaction History',
+    path: '/garbage/history',
     icon: History,
-    roles: [roles.SALON],
+    roles: [roles.ADMIN, roles.AGENT],
   },
   // {
   //   title: 'Thông báo',

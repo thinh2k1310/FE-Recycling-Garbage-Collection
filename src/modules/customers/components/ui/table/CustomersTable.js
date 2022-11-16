@@ -122,9 +122,10 @@ const CustomersTable = (props) => {
           <Thead borderBottom='1px' borderColor='gray.100'>
             <Tr>
               <Th>#</Th>
-              <Th>Họ và tên</Th>
+              <Th>Username</Th>
               <Th>Email</Th>
-              <Th>Số điện thoại</Th>
+              <Th>Name</Th>
+              <Th>Role</Th>
               <Th>Trạng thái</Th>
               <Th></Th>
             </Tr>
@@ -144,7 +145,7 @@ const CustomersTable = (props) => {
                     {username}
                   </Td>
                   <Td>{email}</Td>
-                  <Td>{name}</Td>
+                  <Td>{role}</Td>
                   <Td>
                     {true ? (
                       <Badge colorScheme='green'>Hoạt động</Badge>

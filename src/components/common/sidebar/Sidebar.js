@@ -23,7 +23,6 @@ import styles from './Sidebar.module.css';
 import { configs } from './configs';
 import { activeAccordionItemIndex } from './utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { rolesMapper } from '../../../modules/auth/utils/mappers';
 import { logout, selectAuth } from '../../../modules/auth/services/authSlice';
 import _ from 'lodash';
 import { Logout } from '../../icons';

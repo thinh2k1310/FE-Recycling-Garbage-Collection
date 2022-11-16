@@ -16,8 +16,8 @@ export const customersApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getCustomers: builder.query({
-      query: ({ search, status, page }) => ({
+    getAccounts: builder.query({
+      query: ({ page }) => ({
         url: `?role=NONE&page=${page -1}`,
       }),
       transformResponse: (res) => accountsMapper(res),
@@ -38,7 +38,7 @@ export const customersApi = createApi({
 });
 
 export const {
-  useGetCustomersQuery,
+  useGetAccountsQuery,
   useGetCustomerByIdQuery,
   useDeleteCustomerByIdMutation,
 } = customersApi;

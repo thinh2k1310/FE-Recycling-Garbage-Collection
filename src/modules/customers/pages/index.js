@@ -3,14 +3,14 @@ import React, { Fragment } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Page } from '../../../components/common';
 import { CustomersTable } from '../components/ui/table';
-import { useGetCustomersQuery } from '../services/customersApi';
+import { useGetAccountsQuery } from '../services/customersApi';
 
 const Customers = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || 1);
   const search = searchParams.get('search') || '';
   const status = searchParams.get('status') || '';
-  const { data, error, isLoading, refetch } = useGetCustomersQuery({
+  const { data, error, isLoading, refetch } = useGetAccountsQuery({
     search,
     status,
     page,
@@ -18,11 +18,11 @@ const Customers = () => {
 
   return (
     <Fragment>
-      <Page title='Danh sách người dùng | Brand'>
+      <Page title='User List'>
         <section>
           <Box w='full'>
             <Heading as='h2' fontSize='2xl' my='4'>
-              Danh sách người dùng
+              User List
             </Heading>
             <Box>
               {error ? (
