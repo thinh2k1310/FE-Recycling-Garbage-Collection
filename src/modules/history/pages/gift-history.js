@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { Page } from "../../../components/common";
 import { selectAuth } from "../../auth/services/authSlice";
-import HistoryTable from "../components/ui/table/HistoryTable";
-import { useGetGarbageHistoryByIdQuery } from "../services/historyApi";
+import GiftHistoryTable from "../components/ui/table/GiftHistoryTable";
+import { useGetGiftHistoryByIdQuery } from "../services/historyApi";
 
-const History = () => {
+const GiftHistory = () => {
   const id = useSelector(selectAuth).data.user.id;
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,7 +15,7 @@ const History = () => {
   const search = searchParams.get("search") || "";
   const status = searchParams.get("status") || "";
 
-  const { data, error, isLoading, refetch } = useGetGarbageHistoryByIdQuery({
+  const { data, error, isLoading, refetch } = useGetGiftHistoryByIdQuery({
     id,
     page,
   });
@@ -47,7 +47,7 @@ const History = () => {
                   />
                 </HStack>
               ) : data ? (
-                <HistoryTable
+                <GiftHistoryTable
                   history={data.history}
                   refresh={refetch}
                   totalPages={data.totalPages}
@@ -62,4 +62,4 @@ const History = () => {
   );
 };
 
-export default History;
+export default GiftHistory;

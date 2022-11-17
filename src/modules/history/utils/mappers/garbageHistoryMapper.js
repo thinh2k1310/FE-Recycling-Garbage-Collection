@@ -1,8 +1,8 @@
 import moment from "moment/moment";
 
 
-export default function historyMapper(histories) {
-    const newHistoryList = histories.map((history) => ({
+export default function garbageHistoryMapper(histories) {
+    const newHistoryList = histories.content.map((history) => ({
       id: history.id,
       weight: history.weight,
       point: history.point,

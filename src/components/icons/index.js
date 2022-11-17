@@ -11,6 +11,7 @@ export { default as Dashboard } from './Dashboard';
 export { default as User } from './User';
 export { default as Shop } from './Shop';
 export { default as History } from './History';
+export { default as Gift } from './Gift';
 export { default as Close } from './Close';
 export { default as Plus } from './Plus';
 export { default as Logout } from './Logout';

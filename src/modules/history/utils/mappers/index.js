@@ -1,1 +1,3 @@
-export { default as historyMapper } from './historyMapper';
+export { default as garbageHistoryMapper } from './garbageHistoryMapper';
+export { default as giftHistoryMapper } from './giftHistoryMapper';
+

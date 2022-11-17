@@ -30,7 +30,7 @@ function App() {
 
               {/* Manage account */}
               <Route path='accounts/*' element={<CustomersRoutes />} />
-              <Route path='garbage/history/*' element={<HistoryRoutes />} />
+              <Route path='history/*' element={<HistoryRoutes />} />
               <Route path='salons/*' element={<SalonsRoutes />} />
               <Route path='bookings/*' element={<BookingsRoutes />} />
               <Route path='notifications/*' element={<NotificationsRoutes />} />

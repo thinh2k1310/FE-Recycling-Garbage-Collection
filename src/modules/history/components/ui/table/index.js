@@ -1,1 +1,1 @@
-export { default as HistoryTable } from './HistoryTable';
+export { default as GarbageHistoryTable } from './GarbageHistoryTable';

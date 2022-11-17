@@ -1,5 +1,5 @@
 import { roles } from '../../../constant';
-import { Dashboard, History, Shop, User } from '../../icons';
+import { Dashboard, History, Shop, User, Gift } from '../../icons';
 
 export const configs = [
   {
@@ -27,8 +27,20 @@ export const configs = [
     roles: [roles.AGENT],
   },
   {
+    title: 'My Gift',
+    path: '/mygift/gift',
+    icon: Gift,
+    roles: [roles.ADMIN, roles.AGENT],
+  },
+  {
     title: 'Garbage Transaction History',
-    path: '/garbage/history',
+    path: '/history/garbage',
+    icon: History,
+    roles: [roles.ADMIN, roles.AGENT],
+  },
+  {
+    title: 'Gift Transaction History',
+    path: '/history/gift',
     icon: History,
     roles: [roles.ADMIN, roles.AGENT],
   },

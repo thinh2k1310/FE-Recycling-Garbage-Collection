@@ -3,13 +3,16 @@ import { Route, Routes } from 'react-router-dom';
 import { roles } from '../../constant';
 import { GuardRoute } from '../../router';
 
-const History = React.lazy(() => import('./pages'));
+const GarbageHistory = React.lazy(() => import('./pages/garbage-history'));
+const GiftHistory = React.lazy(() => import('./pages/gift-history'));
+
 
 const HistoryRoutes = () => {
   return (
     <GuardRoute roles={[roles.ADMIN, roles.AGENT]}>
       <Routes>
-        <Route index element={<History />} />
+        <Route path='garbage' element={<GarbageHistory />} />
+        <Route path='gift' element={<GiftHistory />} />
       </Routes>
     </GuardRoute>
   );

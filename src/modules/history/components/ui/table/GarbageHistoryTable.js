@@ -23,7 +23,7 @@ import {
   import { usePrompt } from '../../../../../hooks';
 
   
-  const HistoryTable = (props) => {
+  const GarbageHistoryTable = (props) => {
     const { history, refresh, totalPages, onParamsChange } = props;
     const prompt = usePrompt();
     const toast = useToast();
@@ -163,5 +163,5 @@ import {
     );
   };
   
-  export default HistoryTable;
+  export default GarbageHistoryTable;
   
