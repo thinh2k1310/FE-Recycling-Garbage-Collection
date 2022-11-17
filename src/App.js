@@ -11,6 +11,8 @@ import Home from './modules/home/pages';
 import NotificationsRoutes from './modules/notifications/routes';
 import SalonsRoutes from './modules/salons/routes';
 import HistoryRoutes from './modules/history/routes';
+import GiftRoutes from './modules/gift/routes';
+
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
               {/* Manage account */}
               <Route path='accounts/*' element={<CustomersRoutes />} />
               <Route path='history/*' element={<HistoryRoutes />} />
+              <Route path='gift/*' element={<GiftRoutes />} />
               <Route path='salons/*' element={<SalonsRoutes />} />
               <Route path='bookings/*' element={<BookingsRoutes />} />
               <Route path='notifications/*' element={<NotificationsRoutes />} />

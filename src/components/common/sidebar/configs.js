@@ -28,9 +28,9 @@ export const configs = [
   },
   {
     title: 'My Gift',
-    path: '/mygift/gift',
+    path: '/gift/owner',
     icon: Gift,
-    roles: [roles.ADMIN, roles.AGENT],
+    roles: [roles.AGENT],
   },
   {
     title: 'Garbage Transaction History',
