@@ -32,6 +32,18 @@ const AccountTable = (props) => {
   const [deleteAble, setDeleteAble] = useState(null);
   const [params, setParams] = useState({});
 
+  function renderRole(role) {
+    if (role === "ADMIN") {
+      return <Badge colorScheme="red">Admin</Badge>;
+    } else if (role === "AGENT") {
+      return <Badge colorScheme="purple">Agent</Badge>;
+    } else if (role === "STAFF") {
+      return <Badge colorScheme="yellow">Received</Badge>;
+    } else if (role === "CUSTOMER") {
+      return <Badge colorScheme="green">Customer</Badge>;
+    }
+  }
+
   const _onRemove = (email, customerId) => {
     prompt({
       title: 'Xóa tài khoản!',
@@ -127,9 +139,8 @@ const AccountTable = (props) => {
               <Th>#</Th>
               <Th>Username</Th>
               <Th>Email</Th>
-              <Th>Name</Th>
               <Th>Role</Th>
-              <Th>Trạng thái</Th>
+              <Th>Create At</Th>
               <Th></Th>
             </Tr>
           </Thead>
@@ -148,14 +159,8 @@ const AccountTable = (props) => {
                     {username}
                   </Td>
                   <Td>{email}</Td>
-                  <Td>{role}</Td>
-                  <Td>
-                    {true ? (
-                      <Badge colorScheme='green'>Hoạt động</Badge>
-                    ) : (
-                      <Badge colorScheme='red'>Khóa</Badge>
-                    )}
-                  </Td>
+                  <Td>{renderRole(role)}</Td>
+                  <Td>{createdAt}</Td>
                   <Td>
                     <HStack>
                       <IconButton

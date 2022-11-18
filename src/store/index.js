@@ -5,6 +5,7 @@ import { provincesApi } from '../services/provincesApi';
 import authReducer from '../modules/auth/services/authSlice';
 import { accountsApi } from '../modules/accounts/services/accountsApi';
 import { historyApi } from '../modules/history/services/historyApi';
+import { agentApi } from '../modules/agent/services/agentApi';
 import { giftApi } from '../modules/gift/services/giftApi';
 import { salonsApi } from '../modules/salons/services/salonsApi';
 import { bookingsApi } from '../modules/bookings/services/bookingsApi';
@@ -18,6 +19,7 @@ const store = configureStore({
     auth: authReducer,
     [accountsApi.reducerPath]: accountsApi.reducer,
     [historyApi.reducerPath]: historyApi.reducer,
+    [agentApi.reducerPath]: agentApi.reducer,   
     [giftApi.reducerPath]: giftApi.reducer,
     [salonsApi.reducerPath]: salonsApi.reducer,
     [salonsApi.reducerPath]: salonsApi.reducer,
@@ -29,6 +31,7 @@ const store = configureStore({
     getDefaultMiddleware().concat(
       accountsApi.middleware,
       historyApi.middleware,
+      agentApi.middleware,
       giftApi.middleware,
       provincesApi.middleware,
       salonsApi.middleware,

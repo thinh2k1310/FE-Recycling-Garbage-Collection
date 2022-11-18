@@ -12,6 +12,7 @@ import NotificationsRoutes from './modules/notifications/routes';
 import SalonsRoutes from './modules/salons/routes';
 import HistoryRoutes from './modules/history/routes';
 import GiftRoutes from './modules/gift/routes';
+import AgentRoutes from './modules/agent/routes';
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
 
               {/* Manage account */}
               <Route path='accounts/*' element={<AccountRoutes />} />
-              <Route path='mystaff/*' element={<AccountRoutes />} />
+              <Route path='agent/*' element={<AgentRoutes />} />
               <Route path='history/*' element={<HistoryRoutes />} />
               <Route path='gift/*' element={<GiftRoutes />} />
               <Route path='salons/*' element={<SalonsRoutes />} />

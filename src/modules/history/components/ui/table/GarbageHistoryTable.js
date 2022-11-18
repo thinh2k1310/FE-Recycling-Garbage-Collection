@@ -1,8 +1,6 @@
 import {
-    Badge,
     Box,
     HStack,
-    IconButton,
     Input,
     InputGroup,
     InputRightElement,
@@ -14,19 +12,14 @@ import {
     Th,
     Thead,
     Tr,
-    useToast,
   } from '@chakra-ui/react';
   import React, { useEffect, useState } from 'react';
-  import { Link as ReactLink } from 'react-router-dom';
-  import { Lock, Pencil, Search } from '../../../../../components/icons';
+  import { Search } from '../../../../../components/icons';
   import { Paginator } from '../../../../../components/ui';
-  import { usePrompt } from '../../../../../hooks';
 
   
   const GarbageHistoryTable = (props) => {
     const { history, refresh, totalPages, onParamsChange } = props;
-    const prompt = usePrompt();
-    const toast = useToast();
     const [params, setParams] = useState({});
   
     // const _onRemove = (email, customerId) => {
@@ -126,27 +119,6 @@ import {
                     <Td>{point}</Td>
                     <Td>{receiveAt}</Td>
                     <Td>{completeAt}</Td>
-                    <Td>
-                      <HStack>
-                        <IconButton
-                          as={ReactLink}
-                          to={`/customers/${id}`}
-                          aria-label='Edit user'
-                          colorScheme='yellow'
-                          icon={<Pencil width='20' height='20' />}
-                          size='sm'
-                          borderRadius='none'
-                        />
-                        {/* <IconButton
-                          aria-label='Remove user'
-                          colorScheme='orange'
-                          icon={<Lock width='20' height='20' />}
-                          size='sm'
-                          borderRadius='none'
-                          onClick={() => _onRemove(email, id)}
-                        /> */}
-                      </HStack>
-                    </Td>
                   </Tr>
                 ),
               )}

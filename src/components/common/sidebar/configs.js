@@ -34,7 +34,7 @@ export const configs = [
   },
   {
     title: 'My Staff',
-    path: '/mystaff',
+    path: '/agent/mystaff',
     icon: User,
     roles: [roles.AGENT],
   },
@@ -42,13 +42,13 @@ export const configs = [
     title: 'Garbage Transaction History',
     path: '/history/garbage',
     icon: History,
-    roles: [roles.ADMIN, roles.AGENT],
+    roles: [roles.AGENT],
   },
   {
     title: 'Gift Transaction History',
     path: '/history/gift',
     icon: History,
-    roles: [roles.ADMIN, roles.AGENT],
+    roles: [roles.AGENT],
   },
   // {
   //   title: 'Thông báo',
