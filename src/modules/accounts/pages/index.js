@@ -2,17 +2,17 @@ import { Box, Heading, HStack, Spinner, Text } from '@chakra-ui/react';
 import React, { Fragment } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Page } from '../../../components/common';
-import { CustomersTable } from '../components/ui/table';
-import { useGetAccountsQuery } from '../services/customersApi';
+import { AccountTable } from '../components/ui/table';
+import { useGetAccountsQuery } from '../services/accountsApi';
 
-const Customers = () => {
+const Account = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || 1);
   const search = searchParams.get('search') || '';
-  const status = searchParams.get('status') || '';
+  const role = searchParams.get('role') || 'none';
   const { data, error, isLoading, refetch } = useGetAccountsQuery({
     search,
-    status,
+    role,
     page,
   });
 
@@ -42,8 +42,8 @@ const Customers = () => {
                   />
                 </HStack>
               ) : data ? (
-                <CustomersTable
-                  customers={data.customers}
+                <AccountTable
+                  accounts={data.accounts}
                   refresh={refetch}
                   totalPages={data.totalPages}
                   onParamsChange={(params) => setSearchParams(params)}
@@ -57,4 +57,4 @@ const Customers = () => {
   );
 };
 
-export default Customers;
+export default Account;

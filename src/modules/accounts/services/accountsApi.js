@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { customerDetailsMapper, accountsMapper } from '../utils/mappers';
 
-export const customersApi = createApi({
-  reducerPath: 'customersApi',
+export const accountsApi = createApi({
+  reducerPath: 'accountsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_BASE_API_URL}/getAllAccount`,
     prepareHeaders: (headers, { getState }) => {
@@ -17,8 +17,8 @@ export const customersApi = createApi({
   }),
   endpoints: (builder) => ({
     getAccounts: builder.query({
-      query: ({ page }) => ({
-        url: `?role=NONE&page=${page -1}`,
+      query: ({ role, page }) => ({
+        url: `?role=${role.toUpperCase()}&page=${page -1}`,
       }),
       transformResponse: (res) => accountsMapper(res),
     }),
@@ -41,4 +41,4 @@ export const {
   useGetAccountsQuery,
   useGetCustomerByIdQuery,
   useDeleteCustomerByIdMutation,
-} = customersApi;
+} = accountsApi;

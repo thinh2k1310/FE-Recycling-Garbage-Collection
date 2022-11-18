@@ -3,7 +3,7 @@ import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import appReducer from '../services/appSlice';
 import { provincesApi } from '../services/provincesApi';
 import authReducer from '../modules/auth/services/authSlice';
-import { customersApi } from '../modules/customers/services/customersApi';
+import { accountsApi } from '../modules/accounts/services/accountsApi';
 import { historyApi } from '../modules/history/services/historyApi';
 import { giftApi } from '../modules/gift/services/giftApi';
 import { salonsApi } from '../modules/salons/services/salonsApi';
@@ -16,7 +16,7 @@ const store = configureStore({
     app: appReducer,
     [provincesApi.reducerPath]: provincesApi.reducer,
     auth: authReducer,
-    [customersApi.reducerPath]: customersApi.reducer,
+    [accountsApi.reducerPath]: accountsApi.reducer,
     [historyApi.reducerPath]: historyApi.reducer,
     [giftApi.reducerPath]: giftApi.reducer,
     [salonsApi.reducerPath]: salonsApi.reducer,
@@ -27,7 +27,7 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
-      customersApi.middleware,
+      accountsApi.middleware,
       historyApi.middleware,
       giftApi.middleware,
       provincesApi.middleware,

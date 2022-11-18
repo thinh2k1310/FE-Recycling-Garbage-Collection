@@ -21,10 +21,10 @@ import { Link as ReactLink } from 'react-router-dom';
 import { Lock, Pencil, Search } from '../../../../../components/icons';
 import { Paginator } from '../../../../../components/ui';
 import { usePrompt } from '../../../../../hooks';
-import { useDeleteCustomerByIdMutation } from '../../../services/customersApi';
+import { useDeleteCustomerByIdMutation } from '../../../services/accountsApi';
 
-const CustomersTable = (props) => {
-  const { customers, refresh, totalPages, onParamsChange } = props;
+const AccountTable = (props) => {
+  const { accounts, refresh, totalPages, onParamsChange } = props;
   const prompt = usePrompt();
   const toast = useToast();
   const [deleteCustomerById, { isSuccess: isDeleted }] =
@@ -110,10 +110,13 @@ const CustomersTable = (props) => {
           <Select
             rounded='none'
             defaultValue='active'
-            onChange={(e) => _onChangeParams({ status: e.target.value })}
+            onChange={(e) => _onChangeParams({ role: e.target.value })}
           >
-            <option value='active'>Hoạt động</option>
-            <option value='looked'>Khóa</option>
+            <option value='none'>All</option>
+            <option value='admin'>Admin</option>
+            <option value='agent'>Agent</option>
+            <option value='staff'>Staff</option>
+            <option value='customer'>Customer</option>
           </Select>
         </Box>
       </HStack>
@@ -131,7 +134,7 @@ const CustomersTable = (props) => {
             </Tr>
           </Thead>
           <Tbody>
-            {customers.map(
+            {accounts.map(
               ({ id, username, name, email, role, createdAt, updatedAt }, index) => (
                 <Tr
                   key={id}
@@ -190,4 +193,4 @@ const CustomersTable = (props) => {
   );
 };
 
-export default CustomersTable;
+export default AccountTable;

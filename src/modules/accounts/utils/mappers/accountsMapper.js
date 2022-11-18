@@ -10,7 +10,7 @@ export default function accountsMapper(accounts) {
   }));
 
   return {
-    customers: newCustomers || [],
+    accounts: newCustomers || [],
     totalPages: accounts.data?.totalPages,
   };
 }

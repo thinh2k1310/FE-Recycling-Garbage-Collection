@@ -6,7 +6,7 @@ import { PromptRemove } from './components/ui';
 import { roles } from './constant';
 import AuthRoutes from './modules/auth/routes';
 import BookingsRoutes from './modules/bookings/routes';
-import CustomersRoutes from './modules/customers/routes';
+import AccountRoutes from './modules/accounts/routes';
 import Home from './modules/home/pages';
 import NotificationsRoutes from './modules/notifications/routes';
 import SalonsRoutes from './modules/salons/routes';
@@ -31,7 +31,8 @@ function App() {
               />
 
               {/* Manage account */}
-              <Route path='accounts/*' element={<CustomersRoutes />} />
+              <Route path='accounts/*' element={<AccountRoutes />} />
+              <Route path='mystaff/*' element={<AccountRoutes />} />
               <Route path='history/*' element={<HistoryRoutes />} />
               <Route path='gift/*' element={<GiftRoutes />} />
               <Route path='salons/*' element={<SalonsRoutes />} />

@@ -16,7 +16,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Page } from '../../../components/common';
 import { Form, Input } from '../../../components/ui/form';
-import { useGetCustomerByIdQuery } from '../services/customersApi';
+import { useGetCustomerByIdQuery } from '../services/accountsApi';
 
 const CustomerDetails = (props) => {
   const { customerId } = useParams();

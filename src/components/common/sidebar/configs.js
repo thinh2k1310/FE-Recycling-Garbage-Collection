@@ -33,6 +33,12 @@ export const configs = [
     roles: [roles.AGENT],
   },
   {
+    title: 'My Staff',
+    path: '/mystaff',
+    icon: User,
+    roles: [roles.AGENT],
+  },
+  {
     title: 'Garbage Transaction History',
     path: '/history/garbage',
     icon: History,
