@@ -4,6 +4,7 @@ import appReducer from '../services/appSlice';
 import { provincesApi } from '../services/provincesApi';
 import authReducer from '../modules/auth/services/authSlice';
 import { accountsApi } from '../modules/accounts/services/accountsApi';
+import { statisticApi } from '../modules/home/services/statisticApi';
 import { historyApi } from '../modules/history/services/historyApi';
 import { agentApi } from '../modules/agent/services/agentApi';
 import { giftApi } from '../modules/gift/services/giftApi';
@@ -18,6 +19,7 @@ const store = configureStore({
     [provincesApi.reducerPath]: provincesApi.reducer,
     auth: authReducer,
     [accountsApi.reducerPath]: accountsApi.reducer,
+    [statisticApi.reducerPath]: statisticApi.reducer,
     [historyApi.reducerPath]: historyApi.reducer,
     [agentApi.reducerPath]: agentApi.reducer,   
     [giftApi.reducerPath]: giftApi.reducer,
@@ -31,6 +33,7 @@ const store = configureStore({
     getDefaultMiddleware().concat(
       accountsApi.middleware,
       historyApi.middleware,
+      statisticApi.middleware,
       agentApi.middleware,
       giftApi.middleware,
       provincesApi.middleware,

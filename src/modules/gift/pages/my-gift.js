@@ -23,7 +23,6 @@ const MyGift = () => {
     page,
   });
 
-  console.log(isLoading)
   return (
     <Fragment>
       <Page title="My Gift">
