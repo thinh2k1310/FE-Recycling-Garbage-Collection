@@ -35,7 +35,13 @@ export const statisticApi = createApi({
       }),
       transformResponse: (res) => res.data,
     }),
+    getStatisticOrder: builder.query({
+      query: ({ id }) => ({
+        url: `statistics/order/${id}`,
+      }),
+      transformResponse: (res) => res.data,
+    }),
   }),
 });
 
-export const { useGetStatisticCollectQuery, useGetStatisticRedeemQuery, useGetStatisticAccountQuery } = statisticApi;
+export const { useGetStatisticCollectQuery, useGetStatisticRedeemQuery, useGetStatisticAccountQuery, useGetStatisticOrderQuery} = statisticApi;

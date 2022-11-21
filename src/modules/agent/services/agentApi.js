@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { staffMapper } from "../utils/mappers";
+import customerMapper from "../utils/mappers/customerMapper";
 
 export const agentApi = createApi({
   reducerPath: "agentApi",
@@ -21,8 +22,14 @@ export const agentApi = createApi({
         url: `staff/owner/${id}?page=${page-1}`,
       }),
       transformResponse: (res) => staffMapper(res.data),
+    }),
+    getCustomerOwnerById: builder.query({
+      query: ({ id }) => ({
+        url: `customer/owner/${id}`,
+      }),
+      transformResponse: (res) => customerMapper(res.data),
     })
   }),
 });
 
-export const { useGetStaffOwnerByIdQuery } = agentApi;
+export const { useGetStaffOwnerByIdQuery, useGetCustomerOwnerByIdQuery } = agentApi;
