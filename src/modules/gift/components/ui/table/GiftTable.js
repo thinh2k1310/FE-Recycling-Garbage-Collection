@@ -49,7 +49,7 @@ const GiftTable = (props) => {
   function renderItem(gift, index) {
     if (gift.status === "AVAILABLE") {
       return (
-        <Tr key={gift.id} fontSize="sm" _hover={{ bgColor: "gray.100" }}>
+        <Tr height="50" key={gift.id} fontSize="sm" _hover={{ bgColor: "gray.100" }}>
           <Td>{index + 1}</Td>
           <Td fontWeight="bold">{gift.name}</Td>
           <Td>{gift.brand}</Td>

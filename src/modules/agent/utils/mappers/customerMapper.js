@@ -1,7 +1,7 @@
 
 export default function customerMapper(data) {
     const newCustomer = data.map((customer) => ({
-      id: customer.id,
+      id: customer.accountId,
       name: customer.name,
       username: customer.username,
       email: customer.email,

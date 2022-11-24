@@ -42,13 +42,13 @@ export const configs = [
     title: 'Garbage Transaction History',
     path: '/history/garbage',
     icon: History,
-    roles: [roles.AGENT],
+    roles: [roles.AGENT,roles.ADMIN],
   },
   {
     title: 'Gift Transaction History',
     path: '/history/gift',
     icon: History,
-    roles: [roles.AGENT],
+    roles: [roles.AGENT,roles.ADMIN],
   },
   // {
   //   title: 'Thông báo',

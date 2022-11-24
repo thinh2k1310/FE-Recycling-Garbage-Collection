@@ -1,7 +1,7 @@
 
 export default function staffMapper(staffs) {
   const newStaffs = staffs.content.map((staff) => ({
-    id: staff.id,
+    id: staff.accountId,
     name: staff.name,
     username: staff.username,
     email: staff.email,

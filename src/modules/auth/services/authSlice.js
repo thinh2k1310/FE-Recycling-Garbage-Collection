@@ -25,7 +25,7 @@ export const login = createAsyncThunk(
       accessToken: data.accessToken,
       user: {
         role: data.role,
-        id : data.id
+        id : data.accountId
       },
     };
   },

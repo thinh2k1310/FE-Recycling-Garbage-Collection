@@ -4,15 +4,17 @@ import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { Page } from "../../../components/common";
 import { selectAuth } from "../../auth/services/authSlice";
-import GarbageHistoryTable from "../components/ui/table/GarbageHistoryTable";
+import AdminGarbageHistoryTable from "../components/ui/table/AdminGarbageHistoryTable";
+import AgentGarbageHistoryTable from "../components/ui/table/AgentGarbageHistoryTable";
 import { useGetGarbageHistoryByIdQuery } from "../services/historyApi";
+import { roles } from "../../../constant";
 
 const GarbageHistory = () => {
   const id = useSelector(selectAuth).data.user.id;
+  const role = useSelector(selectAuth).data.user.role;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || 1);
-  const search = searchParams.get("search") || "";
   const status = searchParams.get("status") || "";
 
   const { data, error, isLoading, refetch } = useGetGarbageHistoryByIdQuery({
@@ -20,7 +22,24 @@ const GarbageHistory = () => {
     page,
   });
 
-  console.log(isLoading)
+  function getLayoutByRole(role) {
+    if (role === roles.AGENT) {
+      return (<AgentGarbageHistoryTable
+        history={data.history}
+        refresh={refetch}
+        totalPages={data.totalPages}
+        onParamsChange={(params) => setSearchParams(params)}/>);
+    } else if (role === roles.ADMIN) {
+      return (<AdminGarbageHistoryTable
+        history={data.history}
+        refresh={refetch}
+        totalPages={data.totalPages}
+        onParamsChange={(params) => setSearchParams(params)}/>);
+    } else {
+      return null;
+    }
+  }
+
   return (
     <Fragment>
       <Page title="Garbage History">
@@ -46,14 +65,8 @@ const GarbageHistory = () => {
                     size="xl"
                   />
                 </HStack>
-              ) : data ? (
-                <GarbageHistoryTable
-                  history={data.history}
-                  refresh={refetch}
-                  totalPages={data.totalPages}
-                  onParamsChange={(params) => setSearchParams(params)}
-                />
-              ) : null}
+              ) : data ? 
+              ( getLayoutByRole(role)) : null}
             </Box>
           </Box>
         </section>

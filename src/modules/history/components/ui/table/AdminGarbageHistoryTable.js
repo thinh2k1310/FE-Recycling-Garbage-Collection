@@ -1,7 +1,7 @@
 import {
-  Badge,
   Box,
   HStack,
+  Badge,
   Input,
   InputGroup,
   InputRightElement,
@@ -15,25 +15,11 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Search } from "../../../../../components/icons";
 import { Paginator } from "../../../../../components/ui";
 
-const GiftHistoryTable = (props) => {
+const AdminGarbageHistoryTable = (props) => {
   const { history, refresh, totalPages, onParamsChange } = props;
   const [params, setParams] = useState({});
-
-  function renderStatus(status) {
-      if ({ status } === "CREATE") {
-        return <Badge colorScheme="purple">status</Badge>;
-      } else if (status === "RECEIVE") {
-        return <Badge colorScheme="orange">{status}</Badge>;
-      } else if (status === "COMPLETE") {
-        return <Badge colorScheme="green">{status}</Badge>;
-      } else if (status === "CREATE") {
-        return <Badge colorScheme="red">{status}</Badge>;
-      }
-  }
-
   const _onChangeParams = (value) => {
     setParams({
       ...params,
@@ -51,6 +37,30 @@ const GiftHistoryTable = (props) => {
     }
   }, [params]);
 
+  function getLastUpdateTime(createAt, receiveAt, completeAt, cancelAt, status) {
+    if (status === "COMPLETE") {
+        return completeAt
+      } else if (status === "CREATE") {
+        return createAt
+      } else if (status === "RECEIVE") {
+        return receiveAt
+      } else if (status === "CANCEL") {
+        return cancelAt
+      }
+  }
+
+  function renderStatus(status) {
+    if (status === "COMPLETE") {
+        return <Badge colorScheme="green">Complete</Badge>;
+      } else if (status === "CREATE") {
+        return <Badge colorScheme="purple">Create</Badge>;
+      } else if (status === "RECEIVE") {
+        return <Badge colorScheme="orange">Received</Badge>;
+      } else if (status === "CANCEL") {
+        return <Badge colorScheme="red">Cancel</Badge>;
+      }
+  }
+
   return (
     <Box>
       <HStack
@@ -64,14 +74,6 @@ const GiftHistoryTable = (props) => {
         <HStack flex="1">
           <Box>
             <InputGroup>
-              <Input
-                focusBorderColor="inherit"
-                rounded="none"
-                placeholder="Tìm kiếm"
-                w="sm"
-                onChange={(e) => _onChangeParams({ search: e.target.value })}
-              />
-              <InputRightElement children={<Search width="20" height="20" />} />
             </InputGroup>
           </Box>
         </HStack>
@@ -81,8 +83,11 @@ const GiftHistoryTable = (props) => {
             defaultValue="active"
             onChange={(e) => _onChangeParams({ status: e.target.value })}
           >
-            <option value="active">Hoạt động</option>
-            <option value="looked">Khóa</option>
+            <option value="None">All</option>
+            <option value="Create">Create</option>
+            <option value="Receive">Receive</option>
+            <option value="Complete">Complete</option>
+            <option value="Cancel">Cancel</option>
           </Select>
         </Box>
       </HStack>
@@ -91,12 +96,13 @@ const GiftHistoryTable = (props) => {
           <Thead borderBottom="1px" borderColor="gray.100">
             <Tr>
               <Th>#</Th>
-              <Th>Gift name</Th>
-              <Th>Point</Th>
               <Th>Customer</Th>
               <Th>Staff</Th>
+              <Th>Agent</Th>
+              <Th>Weight</Th>
+              <Th>Point</Th>
               <Th>Status</Th>
-              <Th>Complete At</Th>
+              <Th>Last update</Th>
               <Th></Th>
             </Tr>
           </Thead>
@@ -105,11 +111,11 @@ const GiftHistoryTable = (props) => {
               (
                 {
                   id,
-                  giftName,
-                  giftId,
+                  weight,
+                  point,
                   staffName,
                   customerName,
-                  point,
+                  agentName,
                   status,
                   createAt,
                   receiveAt,
@@ -126,14 +132,13 @@ const GiftHistoryTable = (props) => {
                   }}
                 >
                   <Td>{index + 1}</Td>
-                  <Td fontWeight="bold">{giftName}</Td>
-                  <Td>{point}</Td>
                   <Td fontWeight="bold">{customerName}</Td>
                   <Td fontWeight="bold">{staffName}</Td>
-                  <Td>
-                    {renderStatus(status)}
-                  </Td>
-                  <Td>{completeAt}</Td>
+                  <Td fontWeight="bold">{agentName}</Td>
+                  <Td>{weight}kg</Td>
+                  <Td>{point}</Td>
+                  <Td>{renderStatus(status)}</Td>
+                  <Td>{getLastUpdateTime(createAt, receiveAt, completeAt, cancelAt, status)}</Td>
                 </Tr>
               )
             )}
@@ -150,4 +155,4 @@ const GiftHistoryTable = (props) => {
   );
 };
 
-export default GiftHistoryTable;
+export default AdminGarbageHistoryTable;

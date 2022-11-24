@@ -4,15 +4,17 @@ import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { Page } from "../../../components/common";
 import { selectAuth } from "../../auth/services/authSlice";
-import GiftHistoryTable from "../components/ui/table/GiftHistoryTable";
+import AdminGiftHistoryTable from "../components/ui/table/AdminGiftHistoryTable";
+import AgentGiftHistoryTable from "../components/ui/table/AgentGiftHistoryTable";
 import { useGetGiftHistoryByIdQuery } from "../services/historyApi";
+import { roles } from "../../../constant";
 
 const GiftHistory = () => {
   const id = useSelector(selectAuth).data.user.id;
+  const role = useSelector(selectAuth).data.user.role;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || 1);
-  const search = searchParams.get("search") || "";
   const status = searchParams.get("status") || "";
 
   const { data, error, isLoading, refetch } = useGetGiftHistoryByIdQuery({
@@ -20,14 +22,37 @@ const GiftHistory = () => {
     page,
   });
 
-  console.log(isLoading)
+  function getLayoutByRole(role) {
+    if (role === roles.AGENT) {
+      return (
+        <AgentGiftHistoryTable
+          history={data.history}
+          refresh={refetch}
+          totalPages={data.totalPages}
+          onParamsChange={(params) => setSearchParams(params)}
+        />
+      );
+    } else if (role === roles.ADMIN) {
+      return (
+        <AdminGiftHistoryTable
+          history={data.history}
+          refresh={refetch}
+          totalPages={data.totalPages}
+          onParamsChange={(params) => setSearchParams(params)}
+        />
+      );
+    } else {
+      return null;
+    }
+  }
+
   return (
     <Fragment>
-      <Page title="Garbage History">
+      <Page title="Gift History">
         <section>
           <Box w="full">
             <Heading as="h2" fontSize="2xl" my="4">
-              Garbage History
+              Gift History
             </Heading>
             <Box>
               {error ? (
@@ -47,12 +72,7 @@ const GiftHistory = () => {
                   />
                 </HStack>
               ) : data ? (
-                <GiftHistoryTable
-                  history={data.history}
-                  refresh={refetch}
-                  totalPages={data.totalPages}
-                  onParamsChange={(params) => setSearchParams(params)}
-                />
+                getLayoutByRole(role)
               ) : null}
             </Box>
           </Box>

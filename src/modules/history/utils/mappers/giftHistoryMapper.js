@@ -7,6 +7,7 @@ export default function giftHistoryMapper(gifts) {
       giftId: gift.giftId,
       point: gift.point,
       staffName: gift.staffName || "___",
+      agentName: gift.agentName || "___",
       customerName: gift.customerName,
       status: gift.status,
       createAt: moment(gift.createAt).format("DD/MM/YYYY"),
