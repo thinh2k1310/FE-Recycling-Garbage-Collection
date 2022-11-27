@@ -14,18 +14,27 @@ import {
   Thead,
   Tr,
   useToast,
+  Button,
 } from "@chakra-ui/react";
+import { Modal, Image, notification } from "antd";
 import React, { useEffect, useState } from "react";
-import { Link as ReactLink } from "react-router-dom";
-import { Lock, Pencil, Search } from "../../../../../components/icons";
+import { Search } from "../../../../../components/icons";
 import { Paginator } from "../../../../../components/ui";
 import { usePrompt } from "../../../../../hooks";
+import axios from "axios";
+import GiftForm from "../../GiftForm";
+import { selectAuth } from "../../../../../modules/auth/services/authSlice";
+import { useSelector } from "react-redux";
 
 const GiftTable = (props) => {
-  const { gifts, refresh, totalPages, onParamsChange } = props;
+  const { gifts, refetch, totalPages, onParamsChange } = props;
   const prompt = usePrompt();
   const toast = useToast();
   const [params, setParams] = useState({});
+  const [selectedItem, setSelectedItem] = useState(undefined);
+  const agentId = useSelector(selectAuth).data.user.id;
+  const accessToken = useSelector(selectAuth).data.accessToken;
+  const [isLoading, setIsLoading] = useState(false);
 
   // const _onRemove = (email, customerId) => {
   //   prompt({
@@ -49,7 +58,12 @@ const GiftTable = (props) => {
   function renderItem(gift, index) {
     if (gift.status === "AVAILABLE") {
       return (
-        <Tr height="50" key={gift.id} fontSize="sm" _hover={{ bgColor: "gray.100" }}>
+        <Tr
+          height="50"
+          key={gift.id}
+          fontSize="sm"
+          _hover={{ bgColor: "gray.100" }}
+        >
           <Td>{index + 1}</Td>
           <Td fontWeight="bold">{gift.name}</Td>
           <Td>{gift.brand}</Td>
@@ -59,7 +73,17 @@ const GiftTable = (props) => {
           <Td fontWeight="bold">{gift.placeName}</Td>
           <Td>{gift.type}</Td>
           <Td>
-            <img src={gift.imageUrl} width="50" height="50" alt="new" />
+            <Image
+              src={gift.imageUrl}
+              height="50px"
+              width="100%"
+              style={{ objectFit: "cover" }}
+              alt="new"
+              preview={false}
+            />
+          </Td>
+          <Td>
+            <Button onClick={() => setSelectedItem({ ...gift })}>Edit</Button>
           </Td>
         </Tr>
       );
@@ -80,7 +104,14 @@ const GiftTable = (props) => {
           <Td fontWeight="bold">{gift.placeName}</Td>
           <Td>{gift.type}</Td>
           <Td>
-            <img src={gift.imageUrl} width="50" height="50" alt="new" />
+            <Image
+              height="50px"
+              src={gift.imageUrl}
+              width="100%"
+              alt="new"
+              preview={false}
+              style={{ objectFit: "cover" }}
+            />
           </Td>
         </Tr>
       );
@@ -103,6 +134,37 @@ const GiftTable = (props) => {
       onParamsChange(params);
     }
   }, [params]);
+
+  const onSubmitGift = async ({ imageUrl, ...rest }) => {
+    const url = selectedItem?.id
+      ? `${process.env.REACT_APP_BASE_API_URL}/gift/update/${selectedItem?.id}`
+      : `${process.env.REACT_APP_BASE_API_URL}/gift/add`;
+
+    const response = await axios({
+      method: selectedItem?.id ? "PUT" : "POST",
+      url,
+      data: {
+        ...rest,
+        image: imageUrl,
+        placeId: "55be21dd-09f9-4842-8a91-08dcc1932df5",
+        agentId,
+      },
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+        ["Content-Type"]:
+          "multipart/form-data; boundary=<calculated when request is sent>",
+      },
+    });
+
+    console.log(response);
+    refetch?.();
+    notification.success({
+      message: selectedItem?.id
+        ? "Updated Gift Successfully!"
+        : "Created Gift Successfully!",
+    });
+    setSelectedItem(undefined);
+  };
 
   return (
     <Box>
@@ -140,6 +202,7 @@ const GiftTable = (props) => {
             <option value="received">Received</option>
           </Select>
         </Box>
+        <Button onClick={() => setSelectedItem({})}>Create Gift</Button>
       </HStack>
       <TableContainer bgColor="white" p="3">
         <Table variant="simple">
@@ -154,7 +217,7 @@ const GiftTable = (props) => {
               <Th>Place</Th>
               <Th>Type</Th>
               <Th>Image</Th>
-              <Th></Th>
+              <Th>Action</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -170,6 +233,23 @@ const GiftTable = (props) => {
           onPageChange={(page) => setParams({ ...params, page })}
         />
       </HStack>
+      <Modal
+        open={!!selectedItem}
+        title={selectedItem?.id ? "Update Gift" : "Create Gift"}
+        closable
+        maskClosable
+        onCancel={() => setSelectedItem(undefined)}
+        centered
+        destroyOnClose
+        footer={false}
+      >
+        <GiftForm
+          key={selectedItem?.id}
+          gift={selectedItem}
+          onSubmit={onSubmitGift}
+          loading={isLoading}
+        />
+      </Modal>
     </Box>
   );
 };

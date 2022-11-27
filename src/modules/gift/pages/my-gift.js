@@ -54,6 +54,7 @@ const MyGift = () => {
                   refresh={refetch}
                   totalPages={data.totalPages}
                   onParamsChange={(params) => setSearchParams(params)}
+                  refetch={refetch}
                 />
               ) : null}
             </Box>

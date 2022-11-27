@@ -1,4 +1,3 @@
-
 export default function giftMapper(gifts) {
   const newGifts = gifts.content.map((gift) => ({
     id: gift.id,
@@ -20,6 +19,6 @@ export default function giftMapper(gifts) {
 
   return {
     gifts: newGifts || [],
-    totalPages: gifts.data?.totalPages,
+    totalPages: gifts?.totalPages,
   };
 }

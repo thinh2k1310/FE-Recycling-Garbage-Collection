@@ -1,54 +1,54 @@
-import { roles } from '../../../constant';
-import { Dashboard, History, Shop, User, Gift } from '../../icons';
+import { roles } from "../../../constant";
+import { Dashboard, History, Shop, User, Gift } from "../../icons";
 
 export const configs = [
   {
-    title: 'Dashboard',
-    path: '/',
+    title: "Dashboard",
+    path: "/",
     icon: Dashboard,
     roles: [roles.ADMIN, roles.AGENT],
   },
   {
-    title: 'Manage account',
-    path: '/accounts',
+    title: "Manage account",
+    path: "/accounts",
     icon: User,
     roles: [roles.ADMIN],
   },
   {
-    title: 'Quản lý salons',
-    path: '/salons',
+    title: "Quản lý salons",
+    path: "/salons",
     icon: Shop,
     roles: [roles.ADMIN],
   },
   {
-    title: 'Quản lý salon',
-    path: '/salons/salon',
+    title: "Quản lý salon",
+    path: "/salons/salon",
     icon: Shop,
     roles: [roles.AGENT],
   },
   {
-    title: 'My Gift',
-    path: '/gift/owner',
+    title: "My Gift",
+    path: "/gift/owner",
     icon: Gift,
     roles: [roles.AGENT],
   },
   {
-    title: 'My Staff',
-    path: '/agent/mystaff',
+    title: "My Staff",
+    path: "/agent/mystaff",
     icon: User,
     roles: [roles.AGENT],
   },
   {
-    title: 'Garbage Transaction History',
-    path: '/history/garbage',
+    title: "Garbage Transaction History",
+    path: "/history/garbage",
     icon: History,
-    roles: [roles.AGENT,roles.ADMIN],
+    roles: [roles.AGENT, roles.ADMIN],
   },
   {
-    title: 'Gift Transaction History',
-    path: '/history/gift',
+    title: "Gift Transaction History",
+    path: "/history/gift",
     icon: History,
-    roles: [roles.AGENT,roles.ADMIN],
+    roles: [roles.AGENT, roles.ADMIN],
   },
   // {
   //   title: 'Thông báo',
