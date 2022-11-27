@@ -8,7 +8,7 @@ export default function customerMapper(data) {
       avatar: customer.avatar,
       phoneNumber: customer.phoneNumber,
       identityCardNumber: customer.identityCardNumber,
-      collect: customer.garbageManagement.collect,
+      exchange: customer.garbageManagement.exchange,
       street: customer.address.street,
       district: customer.address.district,
       provinceOrCity: customer.address.provinceOrCity,

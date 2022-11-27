@@ -8,9 +8,8 @@ import {
   Th,
   Thead,
   Tr,
-  useToast,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const CustomerTable = (props) => {
   const { customers } = props;
@@ -30,14 +29,14 @@ const CustomerTable = (props) => {
               <Th>Avatar</Th>
               <Th>Name</Th>
               <Th>PhoneNumber</Th>
-              <Th>Collect</Th>
+              <Th>Exchanged</Th>
               <Th></Th>
             </Tr>
           </Thead>
           <Tbody>
             {customers.map(
               (
-                { id, name, username, email, avatar, phoneNumber, collect },
+                { id, name, username, email, avatar, phoneNumber, exchange },
                 index
               ) => (
                 <Tr key={id} fontSize="sm" _hover={{ bgColor: "gray.100" }}>
@@ -47,7 +46,7 @@ const CustomerTable = (props) => {
                   </Td>
                   <Td fontWeight="bold">{name}</Td>
                   <Td>{phoneNumber}</Td>
-                  <Td>{collect}kg</Td>
+                  <Td>{exchange}kg</Td>
                 </Tr>
               )
             )}
