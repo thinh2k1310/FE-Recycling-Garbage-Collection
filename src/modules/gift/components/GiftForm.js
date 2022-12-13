@@ -1,4 +1,4 @@
-import { Form, Input, InputNumber, Button, Col, Row } from "antd";
+import { Form, Input, InputNumber, Button } from "antd";
 import GiftTypeSelector from "./GiftTypeSelector";
 import UploadImage from "./UploadImage";
 

@@ -4,27 +4,23 @@ import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { Page } from "../../../components/common";
 import { selectAuth } from "../../auth/services/authSlice";
-import GiftTable from "../components/ui/table/GiftTable";
-import { useGetGiftOwnerByIdQuery } from "../services/giftApi";
+import PointTable from "../components/ui/table/PointTable";
+import { useGetPointHistoryByIdQuery } from "../services/historyApi";
 
-const MyGift = () => {
+const PointHistory = () => {
   const id = useSelector(selectAuth).data.user.id;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || 1);
-  const criteria = searchParams.get("criteria") || "None";
 
-
-  const { data, error, isLoading, refetch } = useGetGiftOwnerByIdQuery({
+  const { data, error, isLoading, refetch } = useGetPointHistoryByIdQuery({
     id,
-    criteria,
     page,
   });
 
-  console.log(data)
   return (
     <Fragment>
-      <Page title="My Gift">
+      <Page title="Point History">
         <section>
           <Box w="full">
             <Box>
@@ -45,12 +41,11 @@ const MyGift = () => {
                   />
                 </HStack>
               ) : data ? (
-                <GiftTable
-                  gifts={data.gifts}
+                <PointTable
+                  history={data.history}
                   refresh={refetch}
                   totalPages={data.totalPages}
                   onParamsChange={(params) => setSearchParams(params)}
-                  refetch={refetch}
                 />
               ) : null}
             </Box>
@@ -61,4 +56,4 @@ const MyGift = () => {
   );
 };
 
-export default MyGift;
+export default PointHistory;

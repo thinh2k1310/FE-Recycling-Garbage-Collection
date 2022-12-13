@@ -8,9 +8,8 @@ import { statisticApi } from '../modules/home/services/statisticApi';
 import { historyApi } from '../modules/history/services/historyApi';
 import { agentApi } from '../modules/agent/services/agentApi';
 import { giftApi } from '../modules/gift/services/giftApi';
-import { salonsApi } from '../modules/salons/services/salonsApi';
+import { tplaceApi } from '../modules/tplace/services/tplaceApi';
 import { bookingsApi } from '../modules/bookings/services/bookingsApi';
-import { salonServicesApi } from '../modules/salons/services/salonServicesApi';
 import { notificationsApi } from '../modules/notifications/services/notificationsApi';
 
 const store = configureStore({
@@ -23,11 +22,10 @@ const store = configureStore({
     [historyApi.reducerPath]: historyApi.reducer,
     [agentApi.reducerPath]: agentApi.reducer,   
     [giftApi.reducerPath]: giftApi.reducer,
-    [salonsApi.reducerPath]: salonsApi.reducer,
-    [salonsApi.reducerPath]: salonsApi.reducer,
-    [salonServicesApi.reducerPath]: salonServicesApi.reducer,
+    [tplaceApi.reducerPath]: tplaceApi.reducer,
     [bookingsApi.reducerPath]: bookingsApi.reducer,
     [notificationsApi.reducerPath]: notificationsApi.reducer,
+    
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -36,9 +34,8 @@ const store = configureStore({
       statisticApi.middleware,
       agentApi.middleware,
       giftApi.middleware,
+      tplaceApi.middleware,
       provincesApi.middleware,
-      salonsApi.middleware,
-      salonServicesApi.middleware,
       bookingsApi.middleware,
       notificationsApi.middleware,
     ),

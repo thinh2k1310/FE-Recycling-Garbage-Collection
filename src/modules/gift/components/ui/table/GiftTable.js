@@ -2,9 +2,7 @@ import {
   Badge,
   Box,
   HStack,
-  Input,
-  InputGroup,
-  InputRightElement,
+  Heading,
   Select,
   Table,
   TableContainer,
@@ -13,14 +11,11 @@ import {
   Th,
   Thead,
   Tr,
-  useToast,
   Button,
 } from "@chakra-ui/react";
 import { Modal, Image, notification } from "antd";
 import React, { useEffect, useState } from "react";
-import { Search } from "../../../../../components/icons";
 import { Paginator } from "../../../../../components/ui";
-import { usePrompt } from "../../../../../hooks";
 import axios from "axios";
 import GiftForm from "../../GiftForm";
 import { selectAuth } from "../../../../../modules/auth/services/authSlice";
@@ -28,23 +23,12 @@ import { useSelector } from "react-redux";
 
 const GiftTable = (props) => {
   const { gifts, refetch, totalPages, onParamsChange } = props;
-  const prompt = usePrompt();
-  const toast = useToast();
   const [params, setParams] = useState({});
   const [selectedItem, setSelectedItem] = useState(undefined);
   const agentId = useSelector(selectAuth).data.user.id;
   const accessToken = useSelector(selectAuth).data.accessToken;
   const [isLoading, setIsLoading] = useState(false);
 
-  // const _onRemove = (email, customerId) => {
-  //   prompt({
-  //     title: 'Xóa tài khoản!',
-  //     description: `Bạn có chắc chắn muốn xóa tài khoản <strong>${email}</strong>?`,
-  //     callback: () => {
-  //       setDeleteAble(customerId);
-  //     },
-  //   });
-  // };
   function renderStatus(status) {
     if (status === "AVAILABLE") {
       return <Badge colorScheme="green">Available</Badge>;
@@ -77,7 +61,7 @@ const GiftTable = (props) => {
               src={gift.imageUrl}
               height="50px"
               width="100%"
-              style={{ objectFit: "cover" }}
+              style={{ objectFit: "contain" }}
               alt="new"
               preview={false}
             />
@@ -156,7 +140,6 @@ const GiftTable = (props) => {
       },
     });
 
-    console.log(response);
     refetch?.();
     notification.success({
       message: selectedItem?.id
@@ -177,18 +160,9 @@ const GiftTable = (props) => {
         borderColor="gray.100"
       >
         <HStack flex="1">
-          <Box>
-            <InputGroup>
-              <Input
-                focusBorderColor="inherit"
-                rounded="none"
-                placeholder="Tìm kiếm"
-                w="sm"
-                onChange={(e) => _onChangeParams({ search: e.target.value })}
-              />
-              <InputRightElement children={<Search width="20" height="20" />} />
-            </InputGroup>
-          </Box>
+        <Heading as="h2" fontSize="2xl" my="4">
+              My Gift
+            </Heading>
         </HStack>
         <Box>
           <Select

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { garbageHistoryMapper, giftHistoryMapper } from "../utils/mappers";
+import { garbageHistoryMapper, giftHistoryMapper, pointHistoryMapper } from "../utils/mappers";
 
 export const historyApi = createApi({
   reducerPath: "historyApi",
@@ -27,8 +27,14 @@ export const historyApi = createApi({
         url: `gift/${id}?page=${page-1}`,
       }),
       transformResponse: (res) => giftHistoryMapper(res.data),
+    }),
+    getPointHistoryById: builder.query({
+      query: ({ id , page }) => ({
+        url: `point/${id}?page=${page-1}`,
+      }),
+      transformResponse: (res) => pointHistoryMapper(res.data),
     })
   }),
 });
 
-export const { useGetGarbageHistoryByIdQuery, useGetGiftHistoryByIdQuery } = historyApi;
+export const { useGetGarbageHistoryByIdQuery, useGetGiftHistoryByIdQuery, useGetPointHistoryByIdQuery } = historyApi;

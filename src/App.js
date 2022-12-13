@@ -9,10 +9,10 @@ import BookingsRoutes from './modules/bookings/routes';
 import AccountRoutes from './modules/accounts/routes';
 import Home from './modules/home/pages';
 import NotificationsRoutes from './modules/notifications/routes';
-import SalonsRoutes from './modules/salons/routes';
 import HistoryRoutes from './modules/history/routes';
 import GiftRoutes from './modules/gift/routes';
 import AgentRoutes from './modules/agent/routes';
+import TPlaceRoutes from './modules/tplace/routes';
 
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
               <Route path='agent/*' element={<AgentRoutes />} />
               <Route path='history/*' element={<HistoryRoutes />} />
               <Route path='gift/*' element={<GiftRoutes />} />
-              <Route path='salons/*' element={<SalonsRoutes />} />
+              <Route path='tplace/*' element={<TPlaceRoutes />} />
               <Route path='bookings/*' element={<BookingsRoutes />} />
               <Route path='notifications/*' element={<NotificationsRoutes />} />
             </Route>

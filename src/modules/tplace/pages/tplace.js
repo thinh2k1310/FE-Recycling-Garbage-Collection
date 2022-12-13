@@ -4,29 +4,28 @@ import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { Page } from "../../../components/common";
 import { selectAuth } from "../../auth/services/authSlice";
-import GiftTable from "../components/ui/table/GiftTable";
-import { useGetGiftOwnerByIdQuery } from "../services/giftApi";
+import PlaceTable from "../components/ui/table/PlaceTable";
+import { useGetTPlaceQuery } from "../services/tplaceApi";
 
-const MyGift = () => {
+const TPlace = () => {
   const id = useSelector(selectAuth).data.user.id;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || 1);
-  const criteria = searchParams.get("criteria") || "None";
 
-
-  const { data, error, isLoading, refetch } = useGetGiftOwnerByIdQuery({
+  const { data, error, isLoading, refetch } = useGetTPlaceQuery({
     id,
-    criteria,
     page,
   });
 
-  console.log(data)
   return (
     <Fragment>
-      <Page title="My Gift">
+      <Page title="Trading Place">
         <section>
           <Box w="full">
+            <Heading as="h2" fontSize="2xl" my="4">
+              Trading Place
+            </Heading>
             <Box>
               {error ? (
                 <Box w="full" bgColor="white" p="3">
@@ -45,8 +44,8 @@ const MyGift = () => {
                   />
                 </HStack>
               ) : data ? (
-                <GiftTable
-                  gifts={data.gifts}
+                <PlaceTable
+                  tplaces={data.tplaces}
                   refresh={refetch}
                   totalPages={data.totalPages}
                   onParamsChange={(params) => setSearchParams(params)}
@@ -61,4 +60,4 @@ const MyGift = () => {
   );
 };
 
-export default MyGift;
+export default TPlace;

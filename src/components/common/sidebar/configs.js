@@ -15,16 +15,16 @@ export const configs = [
     roles: [roles.ADMIN],
   },
   {
-    title: "Quản lý salons",
-    path: "/salons",
+    title: "Trading Place",
+    path: "/tplace",
     icon: Shop,
     roles: [roles.ADMIN],
   },
   {
-    title: "Quản lý salon",
-    path: "/salons/salon",
-    icon: Shop,
-    roles: [roles.AGENT],
+    title: "Point History",
+    path: "/history/point",
+    icon: History,
+    roles: [roles.ADMIN],
   },
   {
     title: "My Gift",
@@ -50,10 +50,4 @@ export const configs = [
     icon: History,
     roles: [roles.AGENT, roles.ADMIN],
   },
-  // {
-  //   title: 'Thông báo',
-  //   path: '/notifications',
-  //   icon: Bell,
-  //   roles: [roles.SALON],
-  // },
 ];

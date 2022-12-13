@@ -5,6 +5,7 @@ import { GuardRoute } from '../../router';
 
 const GarbageHistory = React.lazy(() => import('./pages/garbage-history'));
 const GiftHistory = React.lazy(() => import('./pages/gift-history'));
+const PointHistory = React.lazy(() => import('./pages/point-history'));
 
 
 const HistoryRoutes = () => {
@@ -13,6 +14,7 @@ const HistoryRoutes = () => {
       <Routes>
         <Route path='garbage' element={<GarbageHistory />} />
         <Route path='gift' element={<GiftHistory />} />
+        <Route path='point' element={<PointHistory />} />
       </Routes>
     </GuardRoute>
   );

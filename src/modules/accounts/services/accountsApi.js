@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { customerDetailsMapper, accountsMapper } from '../utils/mappers';
+import { customerDetailsMapper, accountsMapper, agentMapper } from '../utils/mappers';
 
 export const accountsApi = createApi({
   reducerPath: 'accountsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env.REACT_APP_BASE_API_URL}/getAllAccount`,
+    baseUrl: `${process.env.REACT_APP_BASE_API_URL}/`,
     prepareHeaders: (headers, { getState }) => {
       const accessToken = getState().auth.data?.accessToken;
 
@@ -18,9 +18,15 @@ export const accountsApi = createApi({
   endpoints: (builder) => ({
     getAccounts: builder.query({
       query: ({ role, page }) => ({
-        url: `?role=${role.toUpperCase()}&page=${page -1}`,
+        url: `getAllAccount?role=${role.toUpperCase()}&page=${page -1}`,
       }),
       transformResponse: (res) => accountsMapper(res),
+    }),
+    getAllAgent: builder.query({
+      query: () => ({
+        url: `all-agent`,
+      }),
+      transformResponse: (res) => agentMapper(res),
     }),
     getCustomerById: builder.query({
       query: (id) => ({
@@ -39,6 +45,7 @@ export const accountsApi = createApi({
 
 export const {
   useGetAccountsQuery,
+  useGetAllAgentQuery,
   useGetCustomerByIdQuery,
   useDeleteCustomerByIdMutation,
 } = accountsApi;

@@ -7,7 +7,6 @@ export const GuardRoute = (props) => {
   const { data } = useSelector(selectAuth);
   const location = useLocation();
 
-  console.log(_.size(_.difference([data.user.role], props.roles)), data)
   if (!data?.accessToken) {
     return <Navigate to='/login' state={{ from: location }} replace />;
   }

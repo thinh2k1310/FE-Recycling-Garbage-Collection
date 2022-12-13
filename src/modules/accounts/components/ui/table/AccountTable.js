@@ -14,6 +14,7 @@ import {
   Th,
   Thead,
   Tr,
+  Button,
   useToast,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
@@ -21,16 +22,50 @@ import { Link as ReactLink } from 'react-router-dom';
 import { Lock, Pencil, Search } from '../../../../../components/icons';
 import { Paginator } from '../../../../../components/ui';
 import { usePrompt } from '../../../../../hooks';
+import { Modal, Image, notification } from "antd";
 import { useDeleteCustomerByIdMutation } from '../../../services/accountsApi';
+import { selectAuth } from "../../../../../modules/auth/services/authSlice";
+import axios from "axios";
+import AccountForm from '../AccountForm';
+import { useSelector } from 'react-redux';
+
 
 const AccountTable = (props) => {
-  const { accounts, refresh, totalPages, onParamsChange } = props;
+  const { accounts, refetch, totalPages, onParamsChange } = props;
   const prompt = usePrompt();
   const toast = useToast();
-  const [deleteCustomerById, { isSuccess: isDeleted }] =
-    useDeleteCustomerByIdMutation();
-  const [deleteAble, setDeleteAble] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(undefined);
   const [params, setParams] = useState({});
+  const accessToken = useSelector(selectAuth).data.accessToken;
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubmitAccount = async ({ imageUrl, ...rest }) => {
+    const url = selectedItem?.id
+      ? `${process.env.REACT_APP_BASE_API_URL}/gift/update/${selectedItem?.id}`
+      : `${process.env.REACT_APP_BASE_API_URL}/create-account`;
+
+    const response = await axios({
+      method: selectedItem?.id ? "PUT" : "POST",
+      url,
+      data: {
+        ...rest,
+        avatar: imageUrl,
+      },
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+        ["Content-Type"]:
+          "multipart/form-data; boundary=<calculated when request is sent>",
+      },
+    });
+
+    refetch?.();
+    notification.success({
+      message: selectedItem?.id
+        ? "Updated Account Successfully!"
+        : "Created Account Successfully!",
+    });
+    setSelectedItem(undefined);
+  };
 
   function renderRole(role) {
     if (role === "ADMIN") {
@@ -38,21 +73,11 @@ const AccountTable = (props) => {
     } else if (role === "AGENT") {
       return <Badge colorScheme="purple">Agent</Badge>;
     } else if (role === "STAFF") {
-      return <Badge colorScheme="yellow">Received</Badge>;
+      return <Badge colorScheme="yellow">Staff</Badge>;
     } else if (role === "CUSTOMER") {
       return <Badge colorScheme="green">Customer</Badge>;
     }
   }
-
-  const _onRemove = (email, customerId) => {
-    prompt({
-      title: 'Xóa tài khoản!',
-      description: `Bạn có chắc chắn muốn xóa tài khoản <strong>${email}</strong>?`,
-      callback: () => {
-        setDeleteAble(customerId);
-      },
-    });
-  };
 
   const _onChangeParams = (value) => {
     setParams({
@@ -66,32 +91,9 @@ const AccountTable = (props) => {
   };
 
   useEffect(() => {
-    if (isDeleted) {
-      toast({
-        title: 'Xóa thành công!',
-        status: 'success',
-        position: 'top-right',
-        duration: 3000,
-        isClosable: true,
-      });
-      setDeleteAble(null);
-      refresh && refresh();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDeleted]);
-
-  useEffect(() => {
-    if (deleteAble) {
-      deleteCustomerById(deleteAble);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deleteAble]);
-
-  useEffect(() => {
     if (onParamsChange) {
       onParamsChange(params);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params]);
 
   return (
@@ -131,6 +133,7 @@ const AccountTable = (props) => {
             <option value='customer'>Customer</option>
           </Select>
         </Box>
+        <Button onClick={() => setSelectedItem({})}>Create Account</Button>
       </HStack>
       <TableContainer bgColor='white' p='3'>
         <Table variant='simple'>
@@ -146,9 +149,9 @@ const AccountTable = (props) => {
           </Thead>
           <Tbody>
             {accounts.map(
-              ({ id, username, name, email, role, createdAt, updatedAt }, index) => (
+              ( account, index) => (
                 <Tr
-                  key={id}
+                  key={account.id}
                   fontSize='sm'
                   _hover={{
                     bgColor: 'gray.100',
@@ -156,29 +159,20 @@ const AccountTable = (props) => {
                 >
                   <Td>{index + 1}</Td>
                   <Td fontWeight='bold'>
-                    {username}
+                    {account.username}
                   </Td>
-                  <Td>{email}</Td>
-                  <Td>{renderRole(role)}</Td>
-                  <Td>{createdAt}</Td>
+                  <Td>{account.email}</Td>
+                  <Td>{renderRole(account.role)}</Td>
+                  <Td>{account.createdAt}</Td>
                   <Td>
                     <HStack>
                       <IconButton
-                        as={ReactLink}
-                        to={`/customers/${id}`}
+                        onClick={() => setSelectedItem({ ...account })}
                         aria-label='Edit user'
                         colorScheme='yellow'
                         icon={<Pencil width='20' height='20' />}
                         size='sm'
                         borderRadius='none'
-                      />
-                      <IconButton
-                        aria-label='Remove user'
-                        colorScheme='orange'
-                        icon={<Lock width='20' height='20' />}
-                        size='sm'
-                        borderRadius='none'
-                        onClick={() => _onRemove(email, id)}
                       />
                     </HStack>
                   </Td>
@@ -194,6 +188,23 @@ const AccountTable = (props) => {
           onPageChange={(page) => setParams({ ...params, page })}
         />
       </HStack>
+      <Modal
+        open={!!selectedItem}
+        title={selectedItem?.id ? "Update Account" : "Create Account"}
+        closable
+        maskClosable
+        onCancel={() => setSelectedItem(undefined)}
+        centered
+        destroyOnClose
+        footer={false}
+      >
+        <AccountForm
+          key={selectedItem?.id}
+          account={selectedItem}
+          onSubmit={onSubmitAccount}
+          loading={isLoading}
+        />
+      </Modal>
     </Box>
   );
 };
