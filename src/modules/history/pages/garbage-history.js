@@ -15,7 +15,6 @@ const GarbageHistory = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || 1);
-  const status = searchParams.get("status") || "";
 
   const { data, error, isLoading, refetch } = useGetGarbageHistoryByIdQuery({
     id,

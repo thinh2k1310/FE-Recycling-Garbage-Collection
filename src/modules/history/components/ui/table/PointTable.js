@@ -1,7 +1,6 @@
 import {
   Box,
   HStack,
-  InputGroup,
   Table,
   TableContainer,
   Tbody,
@@ -16,9 +15,8 @@ import { Paginator } from "../../../../../components/ui";
 
 
 const PointTable = (props) => {
-  const { history, refetch, totalPages, onParamsChange } = props;
+  const { history, totalPages, onParamsChange } = props;
   const [params, setParams] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
   function renderType(type) {
     if (type === "PAY") {
       return <Badge colorScheme="red">Pay</Badge>;
@@ -46,17 +44,6 @@ const PointTable = (props) => {
       </Tr>
     );
   }
-
-  const _onChangeParams = (value) => {
-    setParams({
-      ...params,
-      ...value,
-    });
-    console.log({
-      ...params,
-      ...value,
-    });
-  };
 
   useEffect(() => {
     if (onParamsChange) {

@@ -18,12 +18,10 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { Link as ReactLink } from 'react-router-dom';
 import { Lock, Pencil, Search } from '../../../../../components/icons';
 import { Paginator } from '../../../../../components/ui';
 import { usePrompt } from '../../../../../hooks';
-import { Modal, Image, notification } from "antd";
-import { useDeleteCustomerByIdMutation } from '../../../services/accountsApi';
+import { Modal, notification } from "antd";
 import { selectAuth } from "../../../../../modules/auth/services/authSlice";
 import axios from "axios";
 import AccountForm from '../AccountForm';
@@ -33,7 +31,6 @@ import { useSelector } from 'react-redux';
 const AccountTable = (props) => {
   const { accounts, refetch, totalPages, onParamsChange } = props;
   const prompt = usePrompt();
-  const toast = useToast();
   const [selectedItem, setSelectedItem] = useState(undefined);
   const [params, setParams] = useState({});
   const accessToken = useSelector(selectAuth).data.accessToken;

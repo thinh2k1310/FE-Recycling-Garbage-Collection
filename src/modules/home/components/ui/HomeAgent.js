@@ -2,10 +2,6 @@ import Chart from "react-apexcharts";
 import {
   Box,
   Image,
-  HStack,
-  Spinner,
-  Heading,
-  Text,
   Select,
 } from "@chakra-ui/react";
 import {
@@ -31,8 +27,6 @@ const HomeAgent = (props) => {
 
   const {
     data: dataRedeem,
-    error: errorRedeem,
-    isLoading: isLoadingRedeem,
     refetch: refetchRedeem,
   } = useGetStatisticRedeemQuery({
     id,
@@ -41,16 +35,12 @@ const HomeAgent = (props) => {
 
   const {
     data: dataOrder,
-    error: errorOrder,
-    isLoading: isLoadingOrder,
   } = useGetStatisticOrderQuery({
     id,
   });
 
   const {
     data: dataCustomers,
-    error: errorCustomers,
-    isLoading: isLoadingCustomers,
   } = useGetCustomerOwnerByIdQuery({
     id,
     page,

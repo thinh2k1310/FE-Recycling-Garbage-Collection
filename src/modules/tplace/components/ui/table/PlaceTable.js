@@ -56,17 +56,6 @@ const PlaceTable = (props) => {
     );
   }
 
-  const _onChangeParams = (value) => {
-    setParams({
-      ...params,
-      ...value,
-    });
-    console.log({
-      ...params,
-      ...value,
-    });
-  };
-
   useEffect(() => {
     if (onParamsChange) {
       onParamsChange(params);
